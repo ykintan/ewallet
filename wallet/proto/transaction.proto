@@ -1,0 +1,135 @@
+syntax = "proto3";
+
+package ewallet;
+
+option go_package = "ewallet/wallet/proto";
+
+import "google/protobuf/timestamp.proto";
+
+// The wallet service definition.
+service TransactionService {
+  rpc CreateTransaction(CreateTransactionRequest) returns (CreateTransactionResponse);
+  rpc GetTransaction(GetTransactionRequest) returns (GetTransactionResponse);
+  rpc CreateWallet(CreateWalletRequest) returns (CreateWalletResponse);
+  rpc TransferWallet(TransferWalletRequest) returns (TransferWalletResponse);
+  rpc TopUp(TopUpRequest) returns (TopUpResponse);
+  rpc Payment(PaymentRequest) returns (PaymentResponse);
+  rpc GetWalletByUserID(GetWalletByUserIDRequest) returns (GetWalletByUserIDResponse);
+  rpc GetTransactionByUserID(GetTransactionByUserIDRequest) returns (GetTransactionByUserIDResponse);
+  rpc GetWalletByID(GetWalletByIdrequest) returns (GetWalletByIdrespon);
+}
+
+
+// The transaction message.
+message Transaction {
+  uint32 transaction_id = 1;
+  int32 wallet_id = 2;
+  float amount = 3;
+  string transaction_type = 4;
+  google.protobuf.Timestamp created_at = 5;
+  int32 walletidsource = 6;
+}
+
+// The wallet message.
+message Wallet {
+  int32 id = 1;
+  uint32 user_id = 2;
+  float balance = 3;
+  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp updated_at = 5;
+}
+
+// Request message for CreateTransaction
+message CreateTransactionRequest {
+  Transaction transaction = 1;
+}
+
+// Response message for CreateTransaction
+message CreateTransactionResponse {
+  Transaction transaction = 1;
+}
+
+// Request message for GetTransaction
+message GetTransactionRequest {
+  string id = 1;
+}
+
+// Response message for GetTransaction
+message GetTransactionResponse {
+  Transaction transaction = 1;
+}
+
+// Request message for CreateWallet
+message CreateWalletRequest {
+  Wallet wallet = 1;
+}
+
+// Response message for CreateWallet
+message CreateWalletResponse {
+  Wallet wallet = 1;
+}
+
+// Request message for TransferWallet
+message TransferWalletRequest {
+  int32 from_wallet_id = 1;
+  int32 to_wallet_id = 2;
+  float amount = 3;
+}
+
+// Response message for TransferWallet
+message TransferWalletResponse {
+  string message = 1;
+}
+
+// Request message for TopUp
+message TopUpRequest {
+  int32 wallet_id = 1;
+  float amount = 2;
+}
+
+// Response message for TopUp
+message TopUpResponse {
+  Transaction transaction = 1;
+}
+
+// Request message for Payment
+message PaymentRequest {
+  int32 wallet_id = 1;
+  float amount = 2;
+}
+
+// Response message for Payment
+message PaymentResponse {
+  Transaction transaction = 1;
+}
+
+// Request message for GetWalletByUserID
+message GetWalletByUserIDRequest {
+  int32 user_id = 1;
+}
+
+// Response message for GetWalletByUserID
+message GetWalletByUserIDResponse {
+   Wallet wallets = 1;
+}
+
+
+// Request message for GetTransactionByUserID
+message GetTransactionByUserIDRequest {
+  int32 user_id = 1;
+}
+
+// Response message for GetTransactionByUserID
+message GetTransactionByUserIDResponse {
+  repeated Transaction transactions = 1;
+}
+
+
+message GetWalletByIdrequest {
+  int32 id = 1;
+}
+
+// Response message for GetTransactionByUserID
+message GetWalletByIdrespon {
+  Wallet Wallet = 1;
+}

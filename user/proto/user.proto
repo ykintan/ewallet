@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package user;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "ewallet/user/proto";
+
+service UserService {
+    rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);
+    rpc GetUserByID(GetUserByIDRequest) returns (GetUserByIDResponse);
+    rpc GetUserByUsername(GetUserByUsernameRequest) returns (GetUserByUsernameResponse);
+    rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
+    rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);
+}
+
+message User {
+    uint32 user_id = 1;
+    string username = 2;
+    string password = 3;
+    string email = 4;
+    google.protobuf.Timestamp created_at = 5;
+}
+
+message CreateUserRequest {
+    User user = 1;
+}
+
+message CreateUserResponse {
+    User user = 1;
+}
+
+message GetUserByIDRequest {
+    uint32 user_id = 1;
+}
+
+message GetUserByIDResponse {
+    User user = 1;
+}
+
+message GetUserByUsernameRequest {
+    string username = 1;
+}
+
+message GetUserByUsernameResponse {
+    User user = 1;
+}
+
+message UpdateUserRequest {
+    User user = 1;
+}
+
+message UpdateUserResponse {
+    User user = 1;
+}
+
+message DeleteUserRequest {
+    uint32 user_id = 1;
+}
+
+message DeleteUserResponse {
+    string message = 1;
+}
